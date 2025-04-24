@@ -3,6 +3,7 @@ package server;
 import dao.KhachHangDAOImpl;
 import dao.LinhKienDAOImpl;
 import dao.NhanVienDAOImpl;
+import dao.HoaDonDAOImpl;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -25,11 +26,13 @@ public class Server {
                 KhachHangDAOImpl khachHangDAO = new KhachHangDAOImpl();
                 LinhKienDAOImpl linhKienDAO = new LinhKienDAOImpl();
                 NhanVienDAOImpl nhanVienDAO = new NhanVienDAOImpl();
+                HoaDonDAOImpl hoaDonDAO = new HoaDonDAOImpl();
 
                 // Tạo và chạy một thread cho mỗi kết nối client
                 new Thread(new HandlingClient(socket, khachHangDAO)).start();
                 new Thread(new HandlingLinhKienClient(socket, linhKienDAO)).start();
                 new Thread(new HandlingNhanVienClient(socket, nhanVienDAO)).start();
+                new Thread(new HandlingHoaDonClient(socket, hoaDonDAO)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
